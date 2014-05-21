@@ -48,7 +48,7 @@ module Shwedagon
       puts "post_date"
       puts post_date
       puts "params[:post]"
-      puts params[:post][:content]
+      puts params[:post]
       puts "params[:post][:content]"
       puts params[:post][:content]
       content    = yaml_data(post_title).to_yaml + "---\n" + params[:post][:content]
