@@ -194,7 +194,7 @@ module Shwedagon
       end
     end
     post '/save-post.json' do
-      dataJson = JSON.parse(params)
+      dataJson = JSON.parse(request.body.read, symbolize_names: true)
       #data[:method]
       #data[:post][:content]
       if dataJson[:method] == 'put'
