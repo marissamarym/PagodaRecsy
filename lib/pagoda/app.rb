@@ -96,6 +96,14 @@ module Shwedagon
       mustache :home
     end
 
+        # Index of drafts and published posts
+    get '/home.json' do
+      content_type :json
+      @drafts    = posts_template_data(jekyll_site.read_drafts)
+      @published = posts_template_data(jekyll_site.posts)
+      { :drafts => @drafts, :published => @published}.to_json
+    end
+
 
     #Delete any post. Ideally should be post. For convenience, it is get. 
     get '/delete/*' do
