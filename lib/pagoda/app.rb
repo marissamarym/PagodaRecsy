@@ -194,7 +194,7 @@ module Shwedagon
       end
     end
     post '/save-post.json' do
-      dataJson = JSON.parse(params[:data])
+      dataJson = JSON.parse(params)
       #data[:method]
       #data[:post][:content]
       if dataJson[:method] == 'put'
