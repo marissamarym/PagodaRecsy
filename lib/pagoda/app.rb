@@ -42,8 +42,14 @@ module Shwedagon
     # This would not commit the file.
     def create_new_post(params)      
       post_title = params['post']['title']
+      puts "post_title:"
+      puts post_title
       post_date  = (Time.now).strftime("%Y-%m-%d")
+      puts "post_date"
+      puts post_date
 
+      puts "params[:post][:content]"
+      puts params[:post][:content]
       content    = yaml_data(post_title).to_yaml + "---\n" + params[:post][:content]
       post_file  = (post_date + " " + post_title).to_url + '.md'
       file       = File.join(jekyll_site.source, *%w[_posts], post_file)
