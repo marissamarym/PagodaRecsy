@@ -203,9 +203,27 @@ module Shwedagon
     end
     post '/save-post.json' do
       data = JSON.parse(request.body.read, symbolize_names: true)
-      data[:method]
-      data[:post][:content]
-      data.to_json[:post][:content]
+      #data[:method]
+      #data[:post][:content]
+      if params[:method] == 'put'
+        filename = create_new_post(params)        
+        log_message = "Created #{filename}"
+      else
+        filename = update_post(params)
+        log_message = "Changed #{filename}"
+      end
+
+      # Stage the file for commit
+      repo.add File.join(jekyll_site.source, *%w[_posts], filename)
+
+      data = repo.commit_index log_message
+      push_to_origin(repo)
+
+      if params[:ajax]
+        {:status => 'OK'}.to_json
+      else
+        redirect @base_url + '/edit/' + filename
+      end
     end
 
 
