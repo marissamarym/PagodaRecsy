@@ -95,8 +95,7 @@ module Shwedagon
 
       mustache :home
     end
-
-        # Index of drafts and published posts
+    # Index of drafts and published posts
     get '/home.json' do
       content_type :json
       @drafts    = posts_template_data(jekyll_site.read_drafts)
@@ -116,6 +115,15 @@ module Shwedagon
       
       redirect @base_url
     end
+    get '/delete/*.json' do
+      post_file = params[:splat].first
+      full_path = post_path(post_file)
+
+      repo.remove([full_path])
+      data = repo.commit_index "Deleted #{post_file}"
+      push_to_origin(repo)
+    end
+
 
     # Edit any post
     get '/edit/*' do
@@ -186,6 +194,7 @@ module Shwedagon
         redirect @base_url + '/edit/' + filename
       end
     end
+
 
   end
 end
