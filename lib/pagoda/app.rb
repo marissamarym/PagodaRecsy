@@ -202,14 +202,14 @@ module Shwedagon
       end
     end
     post '/save-post.json' do
-      data = JSON.parse(request.body.read, symbolize_names: true)
+      dataJson = JSON.parse(request.body.read, symbolize_names: true)
       #data[:method]
       #data[:post][:content]
-      if params[:method] == 'put'
-        filename = create_new_post(params)        
+      if dataJson[:method] == 'put'
+        filename = create_new_post(dataJson)        
         log_message = "Created #{filename}"
       else
-        filename = update_post(params)
+        filename = update_post(dataJson)
         log_message = "Changed #{filename}"
       end
 
