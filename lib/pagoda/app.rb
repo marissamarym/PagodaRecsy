@@ -203,7 +203,8 @@ module Shwedagon
     end
     post '/save-post.json' do
       data = JSON.parse(request.body.read)
-      data.to_json
+      data[:post][:content]
+      data.to_json[:post][:content]
     end
 
 
